@@ -9,10 +9,12 @@ set(PUBLIC_HDR_DIR include)
 # ==================================================================================================
 set(PUBLIC_HDRS
         include/viewer/SimpleViewer.h
+        include/viewer/ViewSettings.h
 )
 
 set(SRCS
         src/SimpleViewer.cpp
+        src/ViewSettings.cpp
 )
 
 # ==================================================================================================
@@ -37,3 +39,11 @@ endif()
 # ==================================================================================================
 install(TARGETS ${TARGET} ARCHIVE DESTINATION lib/${DIST_DIR})
 install(DIRECTORY ${PUBLIC_HDR_DIR}/geometry DESTINATION include)
+
+# ==================================================================================================
+# Tests
+# ==================================================================================================
+if (NOT ANDROID AND NOT WEBGL AND NOT IOS)
+    add_executable(test_viewsettings tests/test_viewsettings.cpp)
+    target_link_libraries(test_viewsettings PRIVATE ${TARGET} gtest)
+endif()
